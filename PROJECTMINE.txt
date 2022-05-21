@@ -1,0 +1,1111 @@
+
+
+
+CLASS1.CS
+---------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+
+namespace C_sharp_project
+{
+
+    abstract class Employee
+
+    {
+        public abstract void Add_Employee_details();
+        public abstract void Update_Employee_details();
+        public abstract void Delete_Employee_details();
+        public abstract void Display_Employee_details(string str);
+        public abstract void Calculate_salary(int a);
+
+    }
+    // internal class Employees : Employee
+
+   internal class baseclass : Employee
+    {
+        SqlConnection scon = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Employee;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlCommand cmd;
+        //Class2 obj = new Class2();
+        // Methods obj = new Methods();
+        public override void Add_Employee_details()
+        {
+            Add obj = new Add();
+            int flag = 0;
+            while (flag != 1)
+            {
+                Console.WriteLine("Add Employee Data");
+                Console.WriteLine("________________________");
+                Console.WriteLine(" 1. Add Personal Data\n 2. Add Qualification Data\n 3. Add Government Document\n 4. Add Certification\n 5. Add Experience\n 6.Return ");
+                Console.WriteLine("Enter your choice");
+                int choice;
+                choice = Int32.Parse(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        obj.InsertPersoal();
+                        break;
+                    case 2:
+                        obj.InsertQualification();
+                        break;
+                    case 3:
+                        obj.insertgovernmentdoc();
+                        break;
+                    case 4:
+                        obj.insertcertification();
+                        break;
+                    case 5:
+                        obj.insertexperience();
+                        break;
+                    case 6:
+                        flag = 1;
+                        break;
+                    default:
+                        Console.WriteLine("No Data Available");
+                        break;
+
+                }
+
+            }
+        }
+        public override void Update_Employee_details()
+        {
+            Update obj = new Update();
+            int flag = 0;
+            while (flag != 1)
+            {
+                Console.WriteLine("Update Employee Data");
+                Console.WriteLine("________________________");
+                Console.WriteLine(" 1. Update Personal Data\n 2. Update Qualification Data\n 3. Update Government Document\n 4. Update Certification\n 5. Update Experience\n 6.Return ");
+                Console.WriteLine("Enter your choice");
+                int choice;
+                choice = Int32.Parse(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        obj.updatepersonal();
+                        break;
+                    case 2:
+                        obj.updatequalification();
+                        break;
+                    case 3:
+                        obj.updategovdoc();
+                        break;
+                    case 4:
+                        obj.updatecertification();
+                        break;
+                    case 5:
+                        obj.updateexperience();
+                        break;
+                    case 6:
+                        flag = 1;
+                        break;
+                    default:
+                        Console.WriteLine("No Data Available");
+                        break;
+
+                }
+
+            }
+        }
+        public override void Delete_Employee_details()
+        {
+            int flag = 0;
+            while (flag == 0)
+            {
+                Console.WriteLine("Delete Employee Data");
+                Console.WriteLine("________________________");
+                Console.WriteLine("1. Delete Personal Data\n 2. Delete Qualification Data\n 3. Delete Government Document\n 4. Delete Certification\n 5. Delete Experience\n 6.Return ");
+                int choice;
+                Console.WriteLine("\nEnter your choice");
+                choice = Int32.Parse(Console.ReadLine());
+                string Sap_id;
+                switch (choice)
+                {
+                    case 1:
+                        scon.Open();
+                        Console.WriteLine("sap Id");
+                        Sap_id = Console.ReadLine();
+                        cmd = new SqlCommand("delete from  Employee_Personal_Data where Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();                       
+                        scon.Close();
+                        
+                    
+                        scon.Open();
+                        cmd = new SqlCommand("delete from  Employee_Qualification_Data where  Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+
+                        scon.Open();
+                        cmd = new SqlCommand("delete from  Employee_Government_Document where  Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+
+                        scon.Open();
+                        cmd = new SqlCommand("delete from  Employee_Certification where  Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+
+                        scon.Open();
+                        cmd = new SqlCommand("delete from Employee_Experience where  Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+                        break;
+                   /* case 2:
+
+                        scon.Open();
+                        Console.WriteLine("Sap Id");
+                        Sap_id = Console.ReadLine();
+                        cmd = new SqlCommand("delete from  Employee_Personal_Data where Sap Id='" + Sap_id+ "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+                        Console.WriteLine("data deleted");
+                        Console.ReadLine();
+                        break;*/
+                    case 2:
+                        scon.Open();
+                        Console.WriteLine("Sap Id");
+                        Sap_id = Console.ReadLine();
+                        cmd = new SqlCommand("delete from  Employee_Qualification_Data where  Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+                        Console.WriteLine("data deleted");
+                        Console.ReadLine();
+                        break;
+                    case 3:
+                        scon.Open();
+                        Console.WriteLine("Sap Id");
+                        Sap_id = Console.ReadLine();
+                        cmd = new SqlCommand("delete from  Employee_Government_Document where  Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+                        Console.WriteLine("data deleted");
+                        Console.ReadLine();
+                        break;
+                        break;
+                    case 4:
+                        scon.Open();
+                        Console.WriteLine("Sap Id");
+                        Sap_id = Console.ReadLine();
+                        cmd = new SqlCommand("delete from  Employee_Certification where  Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+                        Console.WriteLine("data deleted");
+                        Console.ReadLine();
+                        break;
+                    case 5:
+                        scon.Open();
+                        Console.WriteLine("Sap Id");
+                        Sap_id = Console.ReadLine();
+                        cmd = new SqlCommand("delete from Employee_Experience where  Sap_id ='" + Sap_id + "'", scon);
+                        cmd.ExecuteNonQuery();
+                        scon.Close();
+                        Console.WriteLine("data deleted");
+                        Console.ReadLine();
+                        break;
+                    case 6:
+                        flag = 1;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Data");
+                        Console.ReadLine();
+                        break;
+
+                }
+
+            }
+        }
+        public override void Display_Employee_details(string Employee_type)
+        {
+            int flag = 0;
+            Console.WriteLine("Display Employee Data");
+            Console.WriteLine("________________________");
+            Console.WriteLine("1. Display Personal Data\n 2. Display Qualification Data\n 3. Display Government Document\n 4. Display Certification\n 5. Display Experience\n 6.Return ");
+            scon.Open();
+            int choice;
+            Console.WriteLine("Enter your choice");
+            //int choice;
+            choice = Int32.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    cmd = new SqlCommand("select * from Employee_Personal_Data where Employee_type='"+ Employee_type+ "'", scon);
+                    SqlDataReader sdr1 = cmd.ExecuteReader();
+                    while (sdr1.Read())
+                    {
+                        Console.Write("{0} | {1} | {2} | {3} | {4} | {5} | {6} | {7}", sdr1.GetString(0), sdr1.GetString(1),
+                            sdr1.GetString(2), sdr1.GetString(3), sdr1.GetString(4), sdr1.GetString(5), sdr1.GetString(6), sdr1.GetString(7));
+                        Console.Write("\n");
+                    }
+                    sdr1.Close();
+                    Console.ReadLine();
+                    break;
+                case 2:
+                    cmd = new SqlCommand("select * from Employee_Qualification_Data ", scon);
+                    SqlDataReader sdr2 = cmd.ExecuteReader();
+                    while (sdr2.Read())
+                    {
+                        Console.Write("{0} | {1} | {2} | {3} | {4} | {5} ", sdr2.GetString(0), sdr2.GetString(1),
+                            sdr2.GetString(2), sdr2.GetString(3), sdr2.GetString(4), sdr2.GetString(5));
+                        Console.Write("\n");
+                    }
+                    sdr2.Close();
+                    break;
+                case 3:
+                    cmd = new SqlCommand("select * from Employee_Government_Document", scon);
+                    SqlDataReader sdr3 = cmd.ExecuteReader();
+                    while (sdr3.Read())
+                    {
+                        Console.Write("{0} | {1} | {2} | {3} | {4} ", sdr3.GetString(0), sdr3.GetString(1),
+                            sdr3.GetString(2), sdr3.GetString(3), sdr3.GetString(4));
+                        Console.Write("\n");
+                    }
+                    sdr3.Close();
+                    break;
+                case 4:
+                    cmd = new SqlCommand("select * from Employee_Certification", scon);
+                    SqlDataReader sdr4 = cmd.ExecuteReader();
+                    while (sdr4.Read())
+                    {
+                        Console.Write("{0} | {1} | {2} | {3}  ", sdr4.GetString(0), sdr4.GetString(1),
+                            sdr4.GetString(2), sdr4.GetString(3));
+                        Console.Write("\n");
+                    }
+                    sdr4.Close();
+                    break;
+                case 5:
+                    cmd = new SqlCommand("select * from Employee_Experience", scon);
+                    SqlDataReader sdr5 = cmd.ExecuteReader();
+                    while (sdr5.Read())
+                    {
+                        Console.Write("{0} | {1} | {2} | {3} | {4} | {5} ", sdr5.GetString(0), sdr5.GetString(1),
+                            sdr5.GetString(2), sdr5.GetString(3), sdr5.GetString(4), sdr5.GetString(5));
+                        Console.Write("\n");
+                    }
+                    sdr5.Close();
+                    break;
+                case 6:
+                    flag = 1;
+                    break;
+                default:
+                    Console.WriteLine("No Data Available");
+                    break;
+
+            }
+            scon.Close();
+        }
+        public override void Calculate_salary(int choice)
+        {
+            Console.WriteLine("_______Salary_______");
+            if (choice == 1)
+            {
+                int BasicSalary = 50000, DearnessAllowance = 700, HRA_allowance = 200, ConveyanceAllowance = 90, EntertainmentAllowance = 60, MedicalInsurance = 80, TotalSalary;
+                TotalSalary = BasicSalary + DearnessAllowance + HRA_allowance + ConveyanceAllowance + EntertainmentAllowance + MedicalInsurance;
+                Console.WriteLine("\nTotal salary of parmanent Employee is : " + TotalSalary);
+            }
+            else if (choice == 3)
+            {
+                int BasicSalary = 30000, HRA_Allowance = 400, DearnessAllowance = 90, TotalSalary;
+                TotalSalary = BasicSalary + HRA_Allowance + DearnessAllowance;
+                Console.WriteLine("\nTotal salary of Retailer is : " + TotalSalary);
+            }
+            else if (choice == 2)
+            {
+                int salary = 5000;
+                Console.WriteLine("\nTotal salary of Temporary Employee is : " + salary);
+            }
+            else
+            {
+                int stipend = 12000;
+                Console.WriteLine("\nTotal salary of interns is : " + stipend);
+            }
+            Console.ReadLine();
+        }
+    }
+
+}
+
+
+
+
+
+
+
+CLASS2.CS
+--------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+
+namespace C_sharp_project
+{
+    internal class Add
+    {
+        SqlConnection scon = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Employee;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlCommand cmd;
+
+        public void InsertPersoal()
+        {
+            string Sap_id,Employee_type,First_name,Last_name, Gender, DOB, Nationality, Maritial_Status;
+            Console.WriteLine("Sap Id:");
+            Sap_id = Console.ReadLine();
+            Console.WriteLine("Employee Type:");
+            Employee_type = Console.ReadLine();
+            Console.WriteLine("First Name:");
+            First_name = Console.ReadLine();
+
+            Console.WriteLine("Last Name");
+            Last_name = Console.ReadLine();
+            Console.WriteLine("Gender: ");
+            Gender = Console.ReadLine();
+            Console.WriteLine("DOB: ");
+            DOB = Console.ReadLine();
+            Console.WriteLine("Nationality: ");
+            Nationality = Console.ReadLine();
+            Console.WriteLine("Maritial Status: ");
+            Maritial_Status = Console.ReadLine();
+            scon.Open();
+            string data = "insert into Employee_Personal_Data values('" + Sap_id + "','" + Employee_type + "','" + First_name + "', '" + Last_name + "','" + Gender + "','" + DOB + "','" + Nationality + "','" + Maritial_Status + "')";
+            //scon.Open();
+            cmd = new SqlCommand(data, scon);
+            cmd.ExecuteNonQuery();
+            Console.WriteLine();
+            Console.WriteLine("Data inserted");
+            Console.ReadLine();
+            scon.Close();
+        }
+        public void InsertQualification()
+
+        {
+            string Sap_id,Qualification, from_date, to_date, university, percentage_sgpa_cgpa;
+            Console.WriteLine("Sap Id:");
+            Sap_id = Console.ReadLine();
+            Console.WriteLine("Qualification:");
+            Qualification = Console.ReadLine();
+            Console.WriteLine("From: ");
+            from_date = Console.ReadLine();
+            Console.WriteLine("To: ");
+            to_date = Console.ReadLine();
+            Console.WriteLine("Board/University");
+            university = Console.ReadLine();
+            Console.WriteLine("Percentage_sgpa_cgpa");
+            percentage_sgpa_cgpa = Console.ReadLine();
+            scon.Open();
+            string data = "insert into Employee_Qualification_Data values('" + Sap_id + "','" + Qualification + "', '" + from_date + "', '" + to_date + "','" + university + "','" + percentage_sgpa_cgpa + "')";
+            //scon.Open();
+            cmd = new SqlCommand(data, scon);
+            cmd.ExecuteNonQuery();
+            Console.WriteLine();
+            Console.WriteLine("Data inserted");
+            Console.ReadLine();
+            scon.Close();
+        }
+        public void insertgovernmentdoc()
+
+        {
+            string Sap_id,Document, card_number, Name_as_doc, DOB;
+            Console.WriteLine("Sap Id:");
+            Sap_id = Console.ReadLine();
+            Console.WriteLine("Document");
+            Document = Console.ReadLine();
+            Console.WriteLine("Card Number: ");
+            card_number = Console.ReadLine();
+            Console.WriteLine("Name as on document ");
+            Name_as_doc = Console.ReadLine();
+            Console.WriteLine("DOB as on Document");
+            DOB = Console.ReadLine();
+
+            scon.Open();
+            string data = "insert into Employee_Government_Document values('" + Sap_id + "','" + Document + "','" + card_number + "', '" + Name_as_doc + "', '" + DOB + "')";
+            // scon.Open();
+            cmd = new SqlCommand(data, scon);
+            cmd.ExecuteNonQuery();
+            Console.WriteLine();
+            Console.WriteLine("Data inserted");
+            Console.ReadLine();
+            scon.Close();
+        }
+        public void insertcertification()
+
+        {
+            string Sap_id,Skill, from_date, to_date;
+            Console.WriteLine("Sap Id:");
+            Sap_id = Console.ReadLine();
+            Console.WriteLine("Certificate ");
+            Skill = Console.ReadLine();
+            Console.WriteLine("From:");
+            from_date = Console.ReadLine();
+            Console.WriteLine("To");
+            to_date = Console.ReadLine();
+            scon.Open();
+            string data = "insert into Employee_Certification values('" + Sap_id + "','" + Skill + "', '" + from_date + "', '" + to_date + "')";
+            //scon.Open();
+            cmd = new SqlCommand(data, scon);
+            cmd.ExecuteNonQuery();
+            Console.WriteLine();
+            Console.WriteLine("Data inserted");
+            Console.ReadLine();
+            scon.Close();
+
+        }
+        public void insertexperience()
+        {
+            string Sap_id,company, DOJ,to_date, designation, Total_experience;
+            Console.WriteLine("Sap Id:");
+            Sap_id = Console.ReadLine();
+            Console.WriteLine("Company Name: ");
+            company = Console.ReadLine();
+            Console.WriteLine("DOJ ");
+            DOJ = Console.ReadLine();
+            Console.WriteLine("To Date ");
+            to_date = Console.ReadLine();
+            Console.WriteLine("Designation");
+            designation = Console.ReadLine();
+            Console.WriteLine("Total Experience: ");
+            Total_experience = Console.ReadLine();
+            scon.Open();
+
+            string data = "insert into Employee_Experience values('" + Sap_id + "','" + company + "','" + DOJ + "','" + to_date + "', '" + designation + "', '" + Total_experience + "')";
+            //scon.Open();
+            cmd = new SqlCommand(data, scon);
+            cmd.ExecuteNonQuery();
+            Console.WriteLine();
+            Console.WriteLine("Data inserted");
+            Console.ReadLine();
+            scon.Close();
+        }
+    }
+    public class Update
+    {
+        SqlConnection scon = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Employee;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlCommand cmd;
+
+        public void updatepersonal()
+        {
+            Console.WriteLine(" 1. First_name\n 2. Last_name\n 3. Gender\n 4. DOB\n 5. Nationality\n 6. Maritial_Status");
+            int choice;
+            Console.WriteLine("Enter your choice");
+            choice = Int32.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    string First_name, Sap_id;
+                    Console.WriteLine("First Name");
+                    First_name = Console.ReadLine();
+
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Personal_Data set First_name='" + First_name + "' where Sap_id='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                case 2:
+                    string Last_name;
+                    Console.WriteLine("Last Name");
+                    Last_name = Console.ReadLine();
+
+                    Console.WriteLine("Sap_id ");
+                    Sap_id = Console.ReadLine();
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Personal_Data set Last_name ='" + Last_name + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                case 3:
+                    string Gender;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Gender");
+                    Gender = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Personal_Data set Gender ='" + Gender + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Data updated");
+
+                    scon.Close();
+                    break;
+                case 4:
+                    string DOB;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("DOB");
+                    DOB = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Personal_Data set DOB ='" + DOB + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Data updated");
+
+                    scon.Close();
+                    break;
+                case 5:
+                    string Nationality;
+                    Console.WriteLine("Nationality");
+                    Nationality = Console.ReadLine();
+
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Personal_Data set Nationality ='" + Nationality + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                   
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                case 6:
+                    string Maritial_Status;
+                    Console.WriteLine("Maritial_Status");
+                    Maritial_Status = Console.ReadLine();
+
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Personal_Data set Maritial_Status ='" + Maritial_Status + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                default:
+                    break;
+
+            }
+            Console.ReadLine();
+        }
+        public void updatequalification()
+        {
+            Console.WriteLine(" 1. Qualification\n 2. from_date\n 3. to_date\n 4. university\n 5. percentage_sgpa_cgpa");
+            int choice;
+            Console.WriteLine("Enter your choice");
+            choice = Int32.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+
+                    string Qualification,Sap_id;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Qualification");
+                    Qualification = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Qualification_Data set Qualification ='" + Qualification + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                   
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                case 2:
+                    string from_date;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("To Date");
+                    from_date = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Qualification_Data set from_date ='" + from_date + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                  
+                    scon.Close();
+                    break;
+                case 3:
+
+                    string to_date;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("To Date");
+                    to_date = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Qualification_Data set to_date ='" + to_date + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                  
+
+                case 4:
+                    string university;
+                    Console.WriteLine("Sap Id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("University");
+                    university = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Qualification_Data set university ='" + university + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                   
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+
+                case 5:
+                    string percentage_sgpa_cgpa;
+                    Console.WriteLine("Certification");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("percentage_sgpa_cgpa");
+                    percentage_sgpa_cgpa = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Qualification_Data set percentage_gpa_cgpa ='" + percentage_sgpa_cgpa + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                default:
+                    break;
+            }
+            Console.ReadLine();
+        }
+        public void updategovdoc()
+
+        {
+            Console.WriteLine("1. Document\n 2. card_number\n 3. Name_as_doc\n 4. DOB");
+            int choice;
+            Console.WriteLine("Enter your choice");
+            choice = Int32.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    string Sap_id, Document;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Document");
+                    Document = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Government_Document set Document ='" + Document + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                   
+                    scon.Close();
+                    break;
+
+                case 2:
+                    string card_number;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Card Number");
+                    card_number = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Government_Document set card_number ='" + card_number + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                  
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+
+                case 3:
+                    string  Name_as_doc;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Name As On Doc");
+                    Name_as_doc = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Government_Document set Name_as_doc ='" + Name_as_doc + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+
+                case 4:
+                    string DOB;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("DOB As On Doc");
+                    DOB = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Government_Document set DOB  ='" + DOB + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                   
+                    Console.WriteLine("Data updated");
+                   
+                    scon.Close();
+                    break;
+                default:
+                    break;
+            }
+            Console.ReadLine();
+        }
+        public void updatecertification()
+
+
+        {
+            Console.WriteLine(" 1. Skill\n 2. from_date\n 3. to_date");
+            int choice;
+            Console.WriteLine("Enter your choice");
+            choice = Int32.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    string Sap_id, Skill;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Skill");
+                    Skill = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Certification set Skill ='" + Skill + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+
+                case 2:
+                    string from_date;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("From Date");
+                    from_date = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Certification set from_date ='" + from_date + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine();
+                    Console.WriteLine("Data updated");
+                    Console.ReadLine();
+                    scon.Close();
+                    break;
+
+                case 3:
+                    string to_date;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("To Date");
+                    to_date = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Certification set to_date ='" + to_date + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                    
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                default:
+                    break;
+            }
+            Console.ReadLine();
+        }
+        public void updateexperience()
+
+
+        {
+            Console.WriteLine(" 1. company\n 2. DOJ\n 3. designation\n 4. Total_experience/n 5. to_date");
+            int choice;
+            Console.WriteLine("Enter your choice");
+            choice = Int32.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    string Sap_id, company;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Company");
+                    company = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Experience set company ='" + company + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+                 
+                    Console.WriteLine("Data updated");
+                    
+                    scon.Close();
+                    break;
+                case 2:
+                    string DOJ;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("DOJ");
+                    DOJ = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Experience set DOJ ='" + DOJ + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Data updated");
+                    scon.Close();
+                    break;
+                case 3:
+                    string designation;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Designation");
+                    designation = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Experience set designation ='" + designation + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Data updated");
+                    scon.Close();
+                    break;
+
+                case 4:
+                    string Total_experience;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("Total Experience");
+                    Total_experience = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Experience set Total_experience ='" + Total_experience + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Data updated");
+                    scon.Close();
+                    break;
+                case 5:
+                    string to_date;
+                    Console.WriteLine("Sap_id");
+                    Sap_id = Console.ReadLine();
+
+                    Console.WriteLine("To Date");
+                    to_date = Console.ReadLine();
+
+
+                    scon.Open();
+                    cmd = new SqlCommand("update Employee_Experience set to_date ='" + to_date + "' where Sap_id ='" + Sap_id + "'", scon);
+                    cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Data updated");
+                    scon.Close();
+                    break;
+
+               
+                default:
+                    break;
+            }
+            Console.ReadLine();
+        }
+    }
+    
+}
+
+
+
+
+
+
+PROGRAM.CS
+-----------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace C_sharp_project
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        
+
+            {
+                int flag = 0;
+                while (flag != 1)
+                {
+                    Console.WriteLine();
+                    int choice;
+                    Console.WriteLine("_______________Types Of Employees________________\n 1. Permanent \n 2. Temporary \n 3. Retailer\n 4. Interns");
+                    Console.WriteLine("\nEnter your choice");
+                    choice = Int32.Parse(Console.ReadLine());
+                    baseclass obj = new baseclass();
+                    switch (choice)
+                    {
+                        case 1:
+                            int choice1;
+                            Console.WriteLine("\n\n 1. Add Employee details\n 2. Update Employee details\n 3. Delete Employee details\n 4. Calculate Salary\n 5. Display Employee details");
+                            Console.WriteLine("\nEnter your choice");
+                            choice1 = Int32.Parse(Console.ReadLine());
+                            if (choice1 == 1)
+                                obj.Add_Employee_details();
+                            else if (choice1 == 2)
+                                obj.Update_Employee_details();
+                        else if (choice1 == 3)
+                            obj.Delete_Employee_details();
+                        else if (choice1 == 4)
+                          obj.Calculate_salary(choice);
+                        else
+                                obj.Display_Employee_details("Permanent");
+                        break;
+                        case 2:
+                            int choice2;
+                            Console.WriteLine("\n\n 1. Add Employee details\n 2.Update Employee details\n 3. Delete Employee details\n 4. Calculate salary\n 5. Display Employee details");
+                            Console.WriteLine("\nEnter your choice");
+                            choice2 = Int32.Parse(Console.ReadLine());
+                            if (choice2 == 1)
+                                obj.Add_Employee_details();
+                            else if (choice2 == 2)
+                            obj.Update_Employee_details();
+                        else if (choice2 == 3)
+                            obj.Delete_Employee_details();
+                        else if (choice2 == 4)
+                         obj.Calculate_salary(choice);
+                        else
+                            obj.Display_Employee_details("Temporary");
+                        break;
+                        case 3:
+                            int choice3;
+                            Console.WriteLine("\n\n 1. Add Employee details\n 2. Update Employee details\n 3. Delete Employee details\n 4. Calculate salary\n 5. Display Employee details");
+                            Console.WriteLine("\nEnter your choice");
+                            choice3 = Int32.Parse(Console.ReadLine());
+                            if (choice3 == 1)
+                            obj.Add_Employee_details();
+                        else if (choice3 == 2)
+                            obj.Update_Employee_details();
+                        else if (choice3 == 3)
+                            obj.Delete_Employee_details();
+                         else if (choice3 == 4)
+                         obj.Calculate_salary(choice);
+                        else
+                            obj.Display_Employee_details("Retailer");
+                        break;
+                        case 4:
+                            int choice4;
+                            Console.WriteLine("\n\n 1. Add Employee details\n 2. Update Employee details\n 3. Delete Employee details\n 4. Calculate salary\n 5. Display Employee details");
+                            Console.WriteLine("\nEnter your choice");
+                            choice4 = Int32.Parse(Console.ReadLine());
+                            if (choice4 == 1)
+                            obj.Add_Employee_details();
+                        else if (choice4 == 2)
+                            obj.Update_Employee_details();
+                        else if (choice4 == 3)
+                                obj.Delete_Employee_details();
+                        else if (choice4 == 4)
+                         obj.Calculate_salary(choice);
+                        else
+                            obj.Display_Employee_details("Interns");
+                        break;
+                        case 5:
+                            flag = 1;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+SQL QUERY
+---------------
+
+CREATE DATABASE Employee
+USE Employee
+
+create table Employee_Personal_Data (Sap_id varchar(20) unique,Employee_type varchar(20),First_name varchar(20),Last_name varchar(20),
+Gender varchar(10),DOB varchar(20),Nationality varchar(20),Maritial_Status varchar(10));
+
+insert into Employee_Personal_Data(Sap_id,Employee_type ,First_name  ,Last_name,Gender ,DOB ,Nationality ,Maritial_Status) 
+values 
+ ('567','Permanent', 'Sapna','Gupta','F', '10/10/1969', 'Indian', 'Married');
+ 
+  
+select*from Employee_Personal_Data;
+
+create table Employee_Qualification_Data (Sap_id varchar(20) unique,foreign key(Sap_id) references Employee_Qualification_Data(Sap_id),Qualification  varchar(50),from_date varchar(20),to_date varchar(20),university varchar (20),percentage_sgpa_cgpa varchar(20));
+insert into Employee_Qualification_Data (Sap_id,Qualification ,from_date ,to_date ,university ,percentage_sgpa_cgpa) 
+values
+('567','secondary', '2015/3/7','2016/6/7', 'pseb', '91');
+select*from Employee_Qualification_Data;
+
+
+create table Employee_Government_Document(Sap_id varchar(20) unique,foreign key(Sap_id) references Employee_Government_Document(Sap_id),Document varchar (50),card_number varchar(50) primary key,Name_as_doc varchar(20),DOB varchar(20));
+insert into Employee_Government_Document(Sap_id,Document,card_number,Name_as_doc,DOB)values
+('567','pan_card','cyrpg5643','shashi','1999/11/1');
+select*from Employee_Government_Document;
+
+
+create table Employee_Certification(Sap_id varchar(20) unique,foreign key(Sap_id) references Employee_Certification(Sap_id),Skill varchar(20),from_date varchar(20),to_date varchar(20));
+insert into Employee_Certification(Sap_id,Skill,from_date,to_date) values ('567','csharp','2022/3/13','2022/4/14');
+select*from Employee_Certification;
+
+create table Employee_Experience(Sap_id varchar(20) unique,foreign key(Sap_id) references Employee_Experience(Sap_id),company varchar(50),DOJ varchar(20) ,to_date varchar(20),designation varchar(50),Total_experience varchar(20));
+insert into Employee_Experience (Sap_id,company,DOJ,to_date,designation,Total_experience) values ('567','HCLT','2019/02/22','2022/02/22','academic_trainee','2 years');
+select*from Employee_Experience;
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
